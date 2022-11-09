@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, useColorScheme } from "react-native";
 
 import Button from "./src/_components/Button";
 import Input from "./src/_components/Input";
+import UploadImage from "./src/_components/UploadImage";
 
 const style = StyleSheet.create({
   appContainer: {
@@ -18,6 +19,7 @@ const App = () => {
   const [email, setEmail] = useState<string>("");
   return (
     <SafeAreaView style={style.appContainer}>
+      <UploadImage />
       <Button
         onPress={() => {
           console.log("hi");
