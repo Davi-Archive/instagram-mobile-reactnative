@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+//@ts-ignore
 import { colors, fonts } from '../app.json'
 const { width, height } = Dimensions.get('screen')
 
