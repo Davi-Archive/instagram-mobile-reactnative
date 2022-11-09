@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, useColorScheme } from "react-native";
+import {
+  ImagePickerResult,
+  SafeAreaView,
+  StyleSheet,
+  useColorScheme
+} from "react-native";
 
 import Button from "./src/_components/Button";
 import Input from "./src/_components/Input";
@@ -17,12 +22,13 @@ const style = StyleSheet.create({
 
 const App = () => {
   const [email, setEmail] = useState<string>("");
+  const [image, setImage] = useState<any>();
   return (
     <SafeAreaView style={style.appContainer}>
-      <UploadImage />
+      <UploadImage setImage={setImage} image={image}/>
       <Button
         onPress={() => {
-          console.log("hi");
+          console.log(image);
         }}
         placeholder="Clique Aqui"
         loading={false}
