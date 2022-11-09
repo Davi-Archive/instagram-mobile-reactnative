@@ -4,7 +4,7 @@ import { colors, fonts } from '../../../app.json'
 const { width, height } = Dimensions.get('screen')
 
 const styles = StyleSheet.create({
-    loginContainer: {
+    registerContainer: {
         display: "flex",
         marginTop: 'auto',
         marginBottom: 'auto',
@@ -13,20 +13,20 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         fontFamily: fonts.regular
     },
-    logo: {
+    login: {
         marginBottom: height * 0.04,
     },
     containerWithAccount:{
         marginTop: height* 0.04,
         alignItems: 'center',
     },
-    textSingUp:{
+    textRegister:{
         color: colors.primaryColor,
         fontSize: 14,
         textDecorationLine: 'underline',
         fontFamily: fonts.bold
     },
-    textAccountSingUp:{
+    textAccountRegister:{
         fontFamily: fonts.regular,
         fontSize: 14,
     }

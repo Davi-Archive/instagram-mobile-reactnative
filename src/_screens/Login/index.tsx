@@ -1,38 +1,50 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 
 import Button from "../../_components/Button";
 import Input from "../../_components/Input";
-import UploadImage from "../../_components/UploadImage";
+import styles from "./styles";
 
-const style = StyleSheet.create({
-  LoginContainer: {
-    display: "flex",
-    margin: 0,
-    border: 0,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
-const Login = () => {
+const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   return (
-    <SafeAreaView style={style.LoginContainer}>
-
-      <Button
-        onPress={() => {
-          console.log('hi');
-        }}
-        placeholder="Login"
-        loading={false}
-        disabled={false}
+    <SafeAreaView style={styles.loginContainer}>
+      <Image
+        style={styles.logo}
+        source={require("../../_assets/images/Logo.png")}
       />
       <Input
         onChangeText={(e: string) => setEmail(e)}
         placeholder={"Digite o seu email"}
         value={email}
+        icon={require("../../_assets/images/envelope.png")}
       />
+      <Input
+        onChangeText={(e: string) => setPassword(e)}
+        placeholder={"Digite sua senha"}
+        value={password}
+        securityTextEntry={true}
+        icon={require("../../_assets/images/key.png")}
+      />
+      <Button
+        onPress={() => console.log("login dude")}
+        placeholder="Login"
+        loading={false}
+        disabled={false}
+      />
+      <View style={styles.containerWithAccount}>
+        <Text style={styles.textAccountSingUp}>Não Possui uma conta?</Text>
+        <TouchableOpacity onPressIn={() => navigation.navigate("Register")}>
+          <Text style={styles.textSingUp}>Faça seu cadastro agora!</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

@@ -1,7 +1,7 @@
 import { ImageSourcePropType } from "react-native";
 
 export interface IInput {
-    icone?: ImageSourcePropType;
+    icon?: ImageSourcePropType;
     placeholder: string;
     style?: any;
     securityTextEntry?: boolean;

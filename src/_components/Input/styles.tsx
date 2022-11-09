@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
-import { colors, fonts } from "../../../app.json";
+import { fonts, colors } from "../../../app.json";
 import { Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("screen");
 
 const style = StyleSheet.create({
   containerInput: {
-    marginTop: height / 20,
+    marginTop: height * 0.03,
     width: width / 1.3,
     height: height / 15,
     borderBottomColor: colors.primaryColor,
@@ -17,7 +17,8 @@ const style = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 14,
     fontWeight: "400",
-    fontFamily: fonts.regular
+    fontFamily: fonts.bold,
+    fontStyle: "italic"
   },
   row: {
     flexDirection: "row",
