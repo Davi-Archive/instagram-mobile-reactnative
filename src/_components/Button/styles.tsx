@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import {colors} from '../../../app.json'
+import {colors,fonts} from '../../../app.json'
 
 const {height,width} = Dimensions.get("screen");
 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.whiteColor,
-    fontFamily: "BiennaleBold",
+    fontFamily: fonts.bold,
     fontWeight: "600"
   },
   buttonDisabled:{
