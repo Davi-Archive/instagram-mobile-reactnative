@@ -15,4 +15,12 @@ const toggleLike = async (postId: string) => {
     return await HttpApiService.put(`/like?id=${postId}`)
 }
 
-export { getPosts,toggleLike }
+const sendComment = async (postId: string, message: string) => {
+    return await HttpApiService.put(`/comments?id=${postId}`, { "comentario": message })
+}
+
+const sendPost = async (body: FormData) => {
+   return await HttpApiService.post('/publicacao', body, { "content-Type": "multipart/form-data" })
+}
+
+export { getPosts, toggleLike, sendComment, sendPost }

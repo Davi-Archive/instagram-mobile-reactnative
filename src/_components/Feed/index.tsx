@@ -25,6 +25,7 @@ const Feed = (props: { isProfileFeed?: boolean; profile?: IUserData }) => {
       try {
         setIsLoading(true);
         const { data } = await FeedService.getPosts(props?.profile?.id);
+
         if (!data) return;
           const postsFormated:IPost[] = data.result.map((post: any) => {
           const postFormated:IPost = {
@@ -38,7 +39,7 @@ const Feed = (props: { isProfileFeed?: boolean; profile?: IUserData }) => {
               email: "",
               token: ""
             },
-            comments: post?.comentario?.map((e: any) => {
+            comments: post?.comentarios?.map((e: any) => {
               return {
                 name: e?.nome,
                 message: e?.comentario,
