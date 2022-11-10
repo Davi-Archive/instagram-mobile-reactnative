@@ -14,9 +14,9 @@ const Header = (props: IHeader) => {
   };
 
   return (
-    <View style={styles.row}>
+    <View style={styles.container}>
       {props.default && (
-        <View>
+        <View style={styles.row}>
           <View>
             <Image
               source={require("../../../_assets/images/logoHorizontal.png")}
@@ -33,6 +33,11 @@ const Header = (props: IHeader) => {
                     styles.containerInputSearchSecond
                   ]
             }>
+            <Image
+              source={require("../../../_assets/images/search.png")}
+              style={styles.icon}
+            />
+
             <TextInput
               placeholder="Pesquisar"
               style={
