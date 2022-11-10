@@ -8,8 +8,8 @@ const style = StyleSheet.create({
   },
   avatar: {
     marginTop: height / 24,
-    width: width / 3,
-    height: height / 5
+    width: 150,
+    height: 150
   }
 });
 
