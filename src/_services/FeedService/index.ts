@@ -11,4 +11,8 @@ const getPosts = async (id?: string) => {
     return await HttpApiService.get(url)
 }
 
-export { getPosts }
+const toggleLike = async (postId: string) => {
+    return await HttpApiService.put(`/like?id=${postId}`)
+}
+
+export { getPosts,toggleLike }

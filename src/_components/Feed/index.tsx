@@ -18,54 +18,54 @@ const Feed = (props: { isProfileFeed?: boolean; profile?: IUserData }) => {
     navigation.addListener("Focus", () => {
       loadPosts();
     });
-  }, [posts]);
+  }, [props]);
 
   const loadPosts = async () => {
     if ((props.isProfileFeed && props.profile?.id) || !props.isProfileFeed) {
       try {
         setIsLoading(true);
         const { data } = await FeedService.getPosts(props?.profile?.id);
-        const postsFormated: IPost[] = data.map((post: any) => {
-          const postFormated: IPost = {
-            id: post._id,
-            image: post.foto,
-            description: post.descricao,
+        if (!data) return;
+          const postsFormated:IPost[] = data.result.map((post: any) => {
+          const postFormated:IPost = {
+            id: post?._id,
+            image: post?.foto,
+            description: post?.descricao,
             user: {
-              name: post.usuario.nome,
-              avatar: post.usuario.avatar,
+              name: post?.usuario?.nome || props.profile?.name,
+              avatar: post?.usuario?.avatar||props.profile?.avatar,
               id: "",
               email: "",
               token: ""
             },
-            comments: post.comentario.map((e: any) => {
+            comments: post?.comentario?.map((e: any) => {
               return {
-                name: e.nome,
-                message: e.message,
-                userId: e.usuarioId
+                name: e?.nome,
+                message: e?.comentario,
+                userId: e?.usuarioId
               };
             }),
-            likes: post.likes
+            likes: post?.likes
           };
           return postFormated;
         });
-        setIsLoading(false);
-
         setPosts(postsFormated);
+        setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        console.log(error);
+        console.log(error + " feed");
       }
     }
   };
   return (
     <View>
-        <FlatList
-          data={posts}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (<Post />) }
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={() => <Loading isLoading={isLoading} />}
-        />
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <Post post={item}/>}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={() => <Loading isLoading={isLoading} />}
+      />
     </View>
   );
 };
