@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { Alert, FlatList, Text, View } from "react-native";
 
 import { IUserData } from "../../_services/UserService/types";
 import * as FeedService from "../../_services/FeedService";
@@ -25,36 +25,43 @@ const Feed = (props: { isProfileFeed?: boolean; profile?: IUserData }) => {
       try {
         setIsLoading(true);
         const { data } = await FeedService.getPosts(props?.profile?.id);
+        let apiReturnFormat = data.result
 
         if (!data) return;
-          const postsFormated:IPost[] = data.result.map((post: any) => {
-          const postFormated:IPost = {
-            id: post?._id,
-            image: post?.foto,
-            description: post?.descricao,
-            user: {
-              name: post?.usuario?.nome || props.profile?.name,
-              avatar: post?.usuario?.avatar||props.profile?.avatar,
-              id: "",
-              email: "",
-              token: ""
-            },
-            comments: post?.comentarios?.map((e: any) => {
-              return {
-                name: e?.nome,
-                message: e?.comentario,
-                userId: e?.usuarioId
-              };
-            }),
-            likes: post?.likes
-          };
-          return postFormated;
-        });
+        
+        if (props?.profile?.id){
+          apiReturnFormat = data;
+        }
+          const postsFormated: IPost[] = apiReturnFormat.map((post: any) => {
+            const postFormated: IPost = {
+              id: post?._id,
+              image: post?.foto,
+              description: post?.descricao,
+              user: {
+                name: post?.usuario?.nome || props.profile?.name,
+                avatar: post?.usuario?.avatar || props.profile?.avatar,
+                id: post?.idUsuario,
+                email: "",
+                token: ""
+              },
+              comments: post?.comentarios?.map((e: any) => {
+                return {
+                  name: e?.nome,
+                  message: e?.comentario,
+                  userId: e?.usuarioId
+                };
+              }),
+              likes: post?.likes
+            };
+
+            return postFormated;
+          });
         setPosts(postsFormated);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
         console.log(error + " feed");
+        Alert.alert('Erro ao carregar feed.')
       }
     }
   };

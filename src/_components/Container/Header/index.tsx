@@ -1,16 +1,19 @@
-import React from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { IHeader } from "./types";
 import styles from "./styles";
+import { IHeader } from "./types";
+import { colors } from "../../../../app.json";
+import { RootStackParamList } from "../../../_routes/RouteStackParams";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Header = (props: IHeader) => {
-  const navigation = useNavigation<any>();
+  type navigationTypes = NativeStackNavigationProp<RootStackParamList, "Home">;
+  const navigation = useNavigation<navigationTypes>();
 
   const logout = async () => {
     await AsyncStorage.removeItem("token");
-    navigation.navigate('Login');
+    navigation.navigate("Login");
   };
 
   return (
@@ -30,7 +33,7 @@ const Header = (props: IHeader) => {
                 ? styles.containerInputSearch
                 : [
                     styles.containerInputSearch,
-                    styles.containerInputSearchSecond
+                    { borderColor: colors.primaryColor, borderWidth: 1 }
                   ]
             }>
             <Image
@@ -52,6 +55,7 @@ const Header = (props: IHeader) => {
           </View>
         </View>
       )}
+
       {props.profileHeader && (
         <View style={styles.containerProfile}>
           <View style={{ marginHorizontal: 16 }}>
@@ -64,10 +68,9 @@ const Header = (props: IHeader) => {
               </TouchableOpacity>
             )}
           </View>
-
           <Text style={styles.textName}>{props.profileHeader.userName}</Text>
-          <View>
-            {props.profileHeader.isExternalProfile && (
+          <View style={{ marginHorizontal: 16 }}>
+            {!props.profileHeader.isExternalProfile && (
               <TouchableOpacity onPress={() => logout()}>
                 <Image
                   source={require("../../../_assets/images/log-out.png")}
@@ -90,7 +93,7 @@ const Header = (props: IHeader) => {
             <TouchableOpacity
               onPress={() =>
                 props.editProfileHeader?.submitEnable &&
-                props.editProfileHeader.submit()
+                props.editProfileHeader?.submit()
               }>
               <Text
                 style={
@@ -105,14 +108,14 @@ const Header = (props: IHeader) => {
         </View>
       )}
 
-      {props.profileHeader && (
+      {props.publicationHeader && (
         <View style={styles.containerProfile}>
           <View style={{ marginHorizontal: 16 }}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={styles.textCancel}>Cancelar</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.textName}>Nova Publicação</Text>
+          <Text style={styles.textName}>Nova Publicacao</Text>
           <View style={{ marginHorizontal: 16 }}>
             <TouchableOpacity
               onPress={() =>
@@ -121,7 +124,7 @@ const Header = (props: IHeader) => {
               }>
               <Text
                 style={
-                  props.publicationHeader?.submitEnable
+                  props.publicationHeader.submitEnable
                     ? styles.textSubmit
                     : styles.textSubmitDisabled
                 }>

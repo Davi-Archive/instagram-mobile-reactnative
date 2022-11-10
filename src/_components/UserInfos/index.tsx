@@ -16,7 +16,7 @@ const UserInfo = (props: { profile: IUserData; userLogged: IUser }) => {
   const navigation = useNavigation<navigationTypes>();
   const [followers, setFollowers] = useState<number>(props.profile.followers);
   const [followThisUser, setFollowThisUser] = useState<boolean>(
-    props.profile.followThisUser
+    props.profile?.followThisUser
   );
   const toggleFollow = async () => {
     try {

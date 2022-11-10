@@ -25,7 +25,6 @@ const Profile = () => {
     try {
       const user = await UserService.getCurrentUser();
       setUserLogged(user);
-      console.log(profileParams);
       let profile;
       if (profileParams && profileParams.id) {
         profile = await UserService.getProfile(profileParams.id);
@@ -34,6 +33,7 @@ const Profile = () => {
       }
 
       if (profile) {
+        console.log(profile.data)
         const profileFormated: IUserData = {
           id: profile.data._id,
           name: profile.data.nome,
@@ -55,6 +55,7 @@ const Profile = () => {
     }
   };
   return (
+    <>
     <Container
       headerProps={{
         profileHeader: {
@@ -72,6 +73,7 @@ const Profile = () => {
         <Feed isProfileFeed={true} profile={profile} />
       </View>
     </Container>
+    </>
   );
 };
 
