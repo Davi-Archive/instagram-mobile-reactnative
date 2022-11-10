@@ -13,7 +13,7 @@ const Footer = (props: IFooter) => {
       onPress: () => {
         navigation.navigate("Home");
       },
-      icone: require("../../../_assets/images/home.png"),
+      icon: require("../../../_assets/images/home.png"),
       iconActivated: require("../../../_assets/images/homeAtivo.png")
     },
     {
@@ -33,6 +33,7 @@ const Footer = (props: IFooter) => {
       iconActivated: require("../../../_assets/images/user.png")
     }
   ];
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -40,7 +41,7 @@ const Footer = (props: IFooter) => {
           <TouchableOpacity onPress={button.onPress} key={index}>
             <Image
               source={
-                (props.currentTab = button.title
+                (props.currentTab == button.title
                   ? button.iconActivated
                   : button.icon)
               }

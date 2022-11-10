@@ -1,15 +1,14 @@
 import Container from "../../_components/Container";
 import Feed from "../../_components/Feed";
 
-
-const Home = () => {
+const Publication = () => {
   return (
     <Container
       headerProps={{ default: true }}
-      footerProps={{ currentTab: "Home" }}>
-    <Feed />
+      footerProps={{ currentTab: "Publication" }}>
+      <Feed />
     </Container>
   );
 };
 
-export default Home;
+export default Publication;

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { RootStackParamList } from "../../_routes/RootStackPrams";
+import { RootStackParamList } from "../../_routes/RouteStackParams";
 import { IUser, IUserData } from "../../_services/UserService/types";
 import styles from "./styles";
 import { colors } from "../../../app.json";
