@@ -7,31 +7,30 @@ const instance = axios.create({
     timeout: 30000
 })
 
-export const api = async (endpoint: string, method: Method, body?: any, newHeaders?: any) => {
+export const api = async (endpoint: string, metodo: Method, body?: any, newHeaders?: any) => {
     const token = await AsyncStorage.getItem('token');
 
-    let headers: any = newHeaders ? newHeaders : { 'Content-type': 'application/json' }
+    let headers: any = newHeaders ? newHeaders : { 'Content-Type': 'application/json' }
 
     if (token) {
-        headers['Authorization'] = 'Bearer' + token
+        headers['Authorization'] = 'Bearer ' + token
     }
-
-    console.log(`executando: ${endpoint}, metodo: ${method}, body ${JSON.stringify(body)}, headers: ${headers}`)
+    console.log(`executando:  ${URL}${endpoint}, metodo: ${metodo}, body ${JSON.stringify(body)}, headers: ${JSON.stringify(headers)}`)
 
     return instance.request({
         url: endpoint,
-        method,
+        method: metodo,
         data: body ? body : '',
-        headers: headers ?
-})
+        headers: headers
+    })
 
 }
 
 const post = async (url: string, data: any, headers?: any) => {
-    return api(url, 'POST', data, headers)
+    return await api(url, "POST", data, headers)
 }
-const put = async (url: string, data: any, headers?: any) => {
-    return api(url, 'PUT', data, headers)
+const put = async (url: string, data?: any, headers?: any) => {
+    return await api(url, 'PUT', data, headers)
 }
 const get = async (url: string, headers?: any) => {
     return api(url, 'GET', headers)

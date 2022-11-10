@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -10,10 +11,39 @@ import {
 import Button from "../../_components/Button";
 import Input from "../../_components/Input";
 import styles from "./styles";
+import * as UserService from "../../_services/UserService";
 
-const Login = ({ navigation }: any) => {
+const Login = () => {
+  const navigation = useNavigation<any>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [erro, setErro] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    verifyLogged();
+  }, []);
+
+  const onLogin = async () => {
+    try {
+      setLoading(true);
+      await UserService.login({ login: email, senha: password });
+      setLoading(false);
+      navigation.navigate("Home");
+    } catch (error) {
+     console.log(error);
+      setErro("Erro ao efetuar o login, tente novamente");
+      setLoading(false);
+    }
+  };
+
+  const verifyLogged = useCallback(async () => {
+    const user = await UserService.getCurrentUser();
+    if (user?.token) {
+      navigation.navigate("Home");
+    }
+  }, []);
+
   return (
     <SafeAreaView style={styles.loginContainer}>
       <Image
@@ -34,7 +64,7 @@ const Login = ({ navigation }: any) => {
         icon={require("../../_assets/images/key.png")}
       />
       <Button
-        onPress={() => console.log("login dude")}
+        onPress={() => onLogin()}
         placeholder="Login"
         loading={false}
         disabled={false}
