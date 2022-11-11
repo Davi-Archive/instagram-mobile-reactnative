@@ -3,6 +3,7 @@
 Instagram like project using the React Native CLI and Android Studio
 it's fully function with the image upload and profile edit. Check some photos of the app.
 
+![store](https://user-images.githubusercontent.com/107776531/201245458-27ac9fd8-52b4-4f3d-a21e-25a89b722046.png)
 
 ## Used Technologies
 
