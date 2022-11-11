@@ -1,0 +1,127 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useState } from "react";
+import {
+  Alert,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native";
+import Avatar from "../../_components/Avatar";
+import Container from "../../_components/Container";
+import { RootStackParamList } from "../../_routes/RouteStackParams";
+import styles from "./styles";
+import * as UserService from "../../_services/UserService";
+import Loading from "../../_components/Container/Loading";
+import { launchImageLibrary } from "react-native-image-picker";
+
+const EditProfile = () => {
+  type navigationTypes = NativeStackNavigationProp<
+    RootStackParamList,
+    "Profile"
+  >;
+  const navigation = useNavigation<navigationTypes>();
+  const profile = navigation
+    .getState()
+    .routes.find((route) => route.name == "EditProfile")?.params;
+
+  const [name, setName] = useState<string>("");
+  const [hasName, setHasName] = useState<boolean>(false);
+  const [image, setImage] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const pickImage = async () => {
+    const result = await launchImageLibrary({
+      mediaType: "photo",
+      quality: 1
+    });
+        if (result.assets) {
+            setImage(result.assets[0])
+        }
+    }
+
+  const editProfile = async () => {
+    console.log('chamou')
+    if (image || name) {
+      try {
+        setIsLoading(true);
+        const body = new FormData();
+        if (image) {
+          const file: any = {
+            uri: image.uri,
+            type: image.type,
+            name: image.fileName
+          };
+          body.append("file", file);
+        }
+        if (name) {
+          body.append("nome", name);
+        }
+        await UserService.update(body);
+        setIsLoading(false);
+        navigation.goBack();
+      } catch (err: any) {
+        setIsLoading(false);
+        console.log(err);
+        Alert.alert("Erro", "Erro ao alterar as informacoes do perfil");
+      }
+    }
+  };
+
+  return (
+    <Container
+      isLoading={isLoading}
+      headerProps={{
+        editProfileHeader: {
+          submit: editProfile,
+          submitEnable: image || name
+        }
+      }}
+      footerProps={{ currentTab: "Profile" }}>
+      <View>
+        {profile && (
+          <View>
+            <View style={styles.containerImage}>
+              <Avatar user={profile} image={image} withBorder={true} />
+              <TouchableOpacity onPress={() => pickImage()}>
+                <Text style={styles.textUpdateImage}>
+                  Alterar foto do perfil
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <View style={styles.containerEditName}>
+                <View style={styles.containerRowEditName}>
+                  <Text style={styles.textName}>Nome</Text>
+                  {!hasName ? (
+                    <Text style={styles.textNameUser}>{profile.name}</Text>
+                  ) : (
+                    <TextInput
+                      placeholder="Digite um nome"
+                      style={styles.input}
+                      value={name}
+                      onChangeText={(n:any) => setName(n)}
+                      autoCapitalize={"characters"}
+                    />
+                  )}
+
+                  <TouchableOpacity
+                    style={styles.buttomDelete}
+                    onPress={() => setHasName(!hasName)}>
+                    <Image
+                      source={require("../../_assets/images/limpar.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+      </View>
+    </Container>
+  );
+};
+
+export default EditProfile;

@@ -26,7 +26,9 @@ const Profile = () => {
       const user = await UserService.getCurrentUser();
       setUserLogged(user);
       let profile;
+      //@ts-ignore
       if (profileParams && profileParams.id) {
+        //@ts-ignore
         profile = await UserService.getProfile(profileParams.id);
       } else if (user && user.id) {
         profile = await UserService.getProfile(user.id);

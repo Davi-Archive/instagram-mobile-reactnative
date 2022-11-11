@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
   Image,
-  ImagePickerResult,
-  Text,
   TouchableOpacity,
   View
 } from "react-native";

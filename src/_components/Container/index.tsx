@@ -14,7 +14,7 @@ const Container = (props: IContainer) => {
     <SafeAreaView style={styles.container}>
       <Header
         publicationHeader={props.headerProps.publicationHeader}
-        editProfileHeader={props.headerProps.publicationHeader}
+        editProfileHeader={props.headerProps.editProfileHeader}
         profileHeader={props.headerProps.profileHeader}
         default={props.headerProps.default}
         searchBar={{

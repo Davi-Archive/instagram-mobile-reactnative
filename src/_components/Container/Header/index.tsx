@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Header = (props: IHeader) => {
+const Header = (props: any) => {
   type navigationTypes = NativeStackNavigationProp<RootStackParamList, "Home">;
   const navigation = useNavigation<navigationTypes>();
 
@@ -80,7 +80,6 @@ const Header = (props: IHeader) => {
           </View>
         </View>
       )}
-
       {props.editProfileHeader && (
         <View style={styles.containerProfile}>
           <View style={{ marginHorizontal: 16 }}>
@@ -90,19 +89,8 @@ const Header = (props: IHeader) => {
           </View>
           <Text style={styles.textName}>Editar Perfil</Text>
           <View style={{ marginHorizontal: 16 }}>
-            <TouchableOpacity
-              onPress={() =>
-                props.editProfileHeader?.submitEnable &&
-                props.editProfileHeader?.submit()
-              }>
-              <Text
-                style={
-                  props.editProfileHeader.submitEnable
-                    ? styles.textSubmit
-                    : styles.textSubmitDisabled
-                }>
-                Concluir
-              </Text>
+            <TouchableOpacity onPress={() => props.editProfileHeader?.submit()}>
+              <Text style={styles.textSubmit}>Concluir</Text>
             </TouchableOpacity>
           </View>
         </View>
