@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  Alert,
   Image,
   SafeAreaView,
   Text,
@@ -33,6 +34,7 @@ const Login = () => {
     } catch (error) {
      console.log(error);
       setErro("Erro ao efetuar o login, tente novamente");
+      Alert.alert("Erro","Erro ao efetuar o login, tente novamente");
       setLoading(false);
     }
   };

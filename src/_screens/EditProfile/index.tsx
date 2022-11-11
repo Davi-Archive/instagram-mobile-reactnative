@@ -43,7 +43,6 @@ const EditProfile = () => {
     }
 
   const editProfile = async () => {
-    console.log('chamou')
     if (image || name) {
       try {
         setIsLoading(true);
@@ -51,8 +50,8 @@ const EditProfile = () => {
         if (image) {
           const file: any = {
             uri: image.uri,
-            type: image.type,
-            name: image.fileName
+            type: `image/${image.uri.split("/").pop().split(".").pop()}`,
+            name: image.uri.split("/").pop()
           };
           body.append("file", file);
         }

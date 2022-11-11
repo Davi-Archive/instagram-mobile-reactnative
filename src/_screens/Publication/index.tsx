@@ -43,8 +43,8 @@ const Publication = () => {
         if (image) {
           const file: any = {
             uri: image.uri,
-            type: image.type,
-            name: image.name
+            type: `image/${image.uri.split("/").pop().split(".").pop()}`,
+            name: image.uri.split("/").pop()
           };
           body.append("file", file);
         }

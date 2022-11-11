@@ -43,7 +43,7 @@ const getProfile = async (id: string) => {
     return await HttpApiService.get(`/pesquisa?id=${id}`)
 }
 const toggleFollow = async (id: string) => {
-    return await HttpApiService.put(`/like?id=${id}`)
+    return await HttpApiService.put(`/seguir?id=${id}`)
 }
 
 export { login, getCurrentUser, register, search, getProfile, toggleFollow, update }
